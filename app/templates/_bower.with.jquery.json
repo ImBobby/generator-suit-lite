@@ -1,0 +1,9 @@
+{
+  "name": "package",
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "1.11.2",
+    "normalize-css": "~3.0.2"
+  }
+}
+
