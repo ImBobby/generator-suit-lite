@@ -30,6 +30,7 @@ By default it will generate:
 * css/
     - normalize.css
     - main.css
+* img/
 * js/
     - main.js
 
