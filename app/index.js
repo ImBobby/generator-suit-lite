@@ -4,15 +4,15 @@ var util      = require('util');
 var path      = require('path');
 var yeoman    = require('yeoman-generator');
 var notifier  = require('update-notifier');
-var pkg       = require('../../package.json');
-
 
 var SuitLiteGenerator = module.exports = function SuitLiteGenerator( args, options, config ) {
   yeoman.generators.Base.apply(this, arguments);
 
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+
   this.on('initializing', function () {
     var opts = {
-      pkg: pkg
+      pkg: this.pkg
     };
 
     notifier( opts ).notify();
@@ -21,8 +21,6 @@ var SuitLiteGenerator = module.exports = function SuitLiteGenerator( args, optio
   this.on('end', function () {
     this.bowerInstall();
   });
-
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
 util.inherits( SuitLiteGenerator, yeoman.generators.Base );
