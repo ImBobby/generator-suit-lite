@@ -1,11 +1,22 @@
 'use strict';
-var util    = require('util');
-var path    = require('path');
-var yeoman  = require('yeoman-generator');
+
+var util      = require('util');
+var path      = require('path');
+var yeoman    = require('yeoman-generator');
+var notifier  = require('update-notifier');
+var pkg       = require('../../package.json');
 
 
 var SuitLiteGenerator = module.exports = function SuitLiteGenerator( args, options, config ) {
   yeoman.generators.Base.apply(this, arguments);
+
+  this.on('initializing', function () {
+    var opts = {
+      pkg: pkg
+    };
+
+    notifier( opts ).notify();
+  });
 
   this.on('end', function () {
     this.bowerInstall();
@@ -34,6 +45,7 @@ SuitLiteGenerator.prototype.ask = function ask() {
 SuitLiteGenerator.prototype.app = function app() {
   this.mkdir('js');
   this.mkdir('css');
+  this.mkdir('img');
 
   this.copy('normalize.css', 'css/normalize.css');
   this.copy('main.css', 'css/main.css');
