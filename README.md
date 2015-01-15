@@ -34,7 +34,7 @@ By default it will generate:
 * js/
     - main.js
 
-This generator also provide jQuery in case you need it.
+This generator also provide jQuery and Bootstrap in case you need it.
 
 ## License
 

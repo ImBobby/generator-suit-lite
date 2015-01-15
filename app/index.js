@@ -17,10 +17,6 @@ var SuitLiteGenerator = module.exports = function SuitLiteGenerator( args, optio
 
     notifier( opts ).notify();
   });
-
-  this.on('end', function () {
-    this.bowerInstall();
-  });
 };
 
 util.inherits( SuitLiteGenerator, yeoman.generators.Base );
@@ -28,14 +24,23 @@ util.inherits( SuitLiteGenerator, yeoman.generators.Base );
 SuitLiteGenerator.prototype.ask = function ask() {
   var done = this.async();
   
-  var requirement = {
-    type: 'confirm',
-    name: 'jquery',
-    message: 'Include jQuery?'
-  };
+  var requirement = [
+    {
+      type: 'confirm',
+      name: 'jquery',
+      message: 'Include jQuery?'
+    },
+    {
+      type: 'confirm',
+      name: 'bootstrap',
+      message: 'Include Bootstrap?'
+    }
+  ];
 
   this.prompt( requirement, function ( answers ) {
     this.includeJquery = answers.jquery;
+    this.includeBootstrap = answers.bootstrap;
+
     done();
   }.bind(this));
 };
@@ -45,10 +50,28 @@ SuitLiteGenerator.prototype.app = function app() {
   this.mkdir('css');
   this.mkdir('img');
 
-  this.copy('normalize.css', 'css/normalize.css');
+  if ( !this.includeBootstrap ) {
+    this.copy('normalize.css', 'css/normalize.css');
+  }
+  
   this.copy('main.css', 'css/main.css');
 
-  if ( this.includeJquery ) {
+  if ( this.includeBootstrap ) {
+    this.mkdir('fonts');
+    this.copy('glyphicons-halflings-regular.svg', 'fonts/glyphicons-halflings-regular.svg');
+    this.copy('glyphicons-halflings-regular.ttf', 'fonts/glyphicons-halflings-regular.ttf');
+    this.copy('glyphicons-halflings-regular.eot', 'fonts/glyphicons-halflings-regular.eot');
+    this.copy('glyphicons-halflings-regular.woff', 'fonts/glyphicons-halflings-regular.woff');
+
+    this.copy('index.bootstrap.html', 'index.html');
+
+    this.copy('bootstrap.min.css', 'css/bootstrap.min.css');
+
+    this.copy('jquery.js', 'js/jquery.js');
+    this.copy('bootstrap.min.js', 'js/bootstrap.min.js');
+    this.copy('main.with.jquery.js', 'js/main.js');
+    this.copy('_bower.bootstrap.json', 'bower.json');
+  } else if ( this.includeJquery && !this.includeBootstrap ) {
     this.copy('index.with.jquery.html', 'index.html');
     this.copy('jquery.js', 'js/jquery.js');
     this.copy('main.with.jquery.js', 'js/main.js');
