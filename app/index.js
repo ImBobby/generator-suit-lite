@@ -55,6 +55,7 @@ SuitLiteGenerator.prototype.app = function app() {
   }
   
   this.copy('main.css', 'css/main.css');
+  this.copy('helper.js', 'js/helper.js');
 
   if ( this.includeBootstrap ) {
     this.mkdir('fonts');
