@@ -4,8 +4,40 @@
             box-sizing: border-box;
 }
 
+html {
+    font: 400 16px/1.5em sans-serif;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+table {
+    width: 100%;
+}
+
 .container {
     width: 95%;
     max-width: 960px;
     margin: 0 auto;
+}
+
+/* Utility class */
+
+.cf:after {
+    display: table;
+    clear: both;
+    content: '';
+}
+
+.sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
